@@ -23,7 +23,15 @@ body {
 
 }
 
-#sketchContainer {
-  width: 100%;
-  height: auto;
+#homeSketchContainer {
+  position: absolute;
+  box-sizing: content-box;
+  border: 2px dashed black;
+  width: 400px;
+  height: 400px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }

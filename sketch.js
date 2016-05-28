@@ -30,8 +30,8 @@ function preload() {
 
 
 function setup() {
-  var canvas = createCanvas(800, 800);
-  canvas.parent('sketchContainer');
+  var canvas = createCanvas(400, 400);
+  canvas.parent('homeSketchContainer');
 
 
   // background(backgroundImg); // make the background 100% opaque
@@ -66,12 +66,8 @@ function draw() {
   noStroke();
   rect(0, 0, width, height);
 
-  // var dirX = (mouseX / width - 0.5) *2;
-  // var dirY = (mouseY / height - 0.5) *(-2);
-  // directionalLight(250, 250, 250, dirX, dirY, 0.25);
-  // ambientMaterial(250);
-
   // background(77, 33, 45, 0.2);
+
   attractor.location.x = mouseX;
   attractor.location.y = mouseY;
   attractor.draw();
