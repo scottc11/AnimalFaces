@@ -1,10 +1,12 @@
 
-var gravConst = 1;
-var numberOfParticles = 10;
-var attractorRange = 25;
+var gravConst = 60;  // the gravity contstant increases the velocity speed
+
+var attractor; // object which attracts particles
+var attractorRange = 100;
+var attractorSize = 20; // the size (ie. mass) of the attractor will effect the gravitational pull
 
 var particleArray = [];
-var attractor;
+
 
 var img;
 var pixelArray;
@@ -20,35 +22,29 @@ function preload() {
 
 
 function setup() {
-  var canvas = createCanvas(400, 400);
+  var canvas = createCanvas(500, 500);
   background(0);
   loadPixels(); // must be called before accessing the pixels[] array
 
   // instantiate attractor object
-  attractor = new Attractor(250, 125, 20);
-
-  var c = img.get(25, 25);
-  console.log(c);
-  // below is an equation for calculating the grayscale of a pixel in an img
-  var grayscale = round(red(c)*0.222 + green(c)*0.707 + blue(c)*0.071);
-  console.log("grayscale: " + grayscale);
-  pixelArray = img.get();
-  console.log();
-
+  attractor = new Attractor(mouseX, mouseY, attractorSize);
 
   // build array of particle objects for each pixel in img
+  // the gridx and gridy variables represent each pixel in the image
+  // the posX and posY variables represent the position of the partical objects scaled to the canvas dimensions
   for (var gridX = 0; gridX < img.width; gridX++) {
     for (var gridY = 0; gridY < img.height; gridY++) {
       var tileWidth = width / img.width;
       var tileHeight = height / img.height;
       var posX = tileWidth * gridX;
       var posY = tileHeight * gridY;
-      var size = 2;
+      var pixelColor = img.get(gridX, gridY);
+      var greyscale = round(red(pixelColor)*0.222 + green(pixelColor)*0.707 + blue(pixelColor)*0.071);
+      var size = 0.75 * sqrt(tileWidth*tileWidth*(1-greyscale/255.0));
+      console.log("(" + gridX + "," + gridY + ")" + "SIZE: " + size);
       particleArray.push(new Particle(posX, posY, size));
     }
-
   }
-
 }
 
 
@@ -97,6 +93,7 @@ function Particle(_locX, _locY, _size, _name) {
 
   this.draw = function() {
     fill(255);
+    noStroke();
     ellipse(this.location.x, this.location.y, this.size, this.size);
   }
 
