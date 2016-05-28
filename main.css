@@ -1,0 +1,16 @@
+body {
+  /*background-image: url("images/background_image_alt.jpg");
+  background-size: 100% 100%;*/
+  /*background-image: url("images/fox100.jpg");*/
+  width: 100%;
+  height: 100%;
+}
+
+#backgroundImage {
+
+}
+
+#sketchContainer {
+  width: 100%;
+  height: auto;
+}

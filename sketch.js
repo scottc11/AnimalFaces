@@ -9,22 +9,33 @@ var particleArray = [];
 
 
 var img;
+var backgroundImg;
 var pixelArray;
 
 // Be sure to initialize a server in order to load image
 function preload() {
+  backgroundImg = loadImage("images/background_image_alt.jpg", function() {
+    console.log("load image success");
+  }, function() {
+    console.log("load image failed");
+  });
+
   img = loadImage("images/fox50.jpg", function() {
     console.log("load image success");
   }, function() {
     console.log("load image failed");
   });
+
 }
 
 
 function setup() {
   var canvas = createCanvas(500, 500);
-  background(0);
-  loadPixels(); // must be called before accessing the pixels[] array
+  canvas.parent('sketchContainer');
+
+
+  background(backgroundImg); // make the background 100% opaque
+  // loadPixels(); // must be called before accessing the pixels[] array
 
   // instantiate attractor object
   attractor = new Attractor(mouseX, mouseY, attractorSize);
@@ -41,7 +52,6 @@ function setup() {
       var pixelColor = img.get(gridX, gridY);
       var greyscale = round(red(pixelColor)*0.222 + green(pixelColor)*0.707 + blue(pixelColor)*0.071);
       var size = 0.75 * sqrt(tileWidth*tileWidth*(1-greyscale/255.0));
-      console.log("(" + gridX + "," + gridY + ")" + "SIZE: " + size);
       particleArray.push(new Particle(posX, posY, size));
     }
   }
@@ -50,7 +60,8 @@ function setup() {
 
 
 function draw() {
-  background(0);
+
+  background(backgroundImg);
   attractor.location.x = mouseX;
   attractor.location.y = mouseY;
   attractor.draw();
@@ -140,11 +151,11 @@ function Attractor(_locX, _locY, _size) {
   this.range = attractorRange;
 
   this.draw = function() {
-    fill(77);
+    fill(77, 0.2);
     stroke(255);
     ellipse(this.location.x, this.location.y, this.range*2, this.range*2);
     stroke(255);
-    fill(44);
+    fill(44, 0.7);
     smooth();
     ellipse(this.location.x, this.location.y, this.size, this.size);
   }
