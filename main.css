@@ -1,6 +1,19 @@
+/*
+color scheme
+
+<li title="#867D80" style="background: #867D80"></li>
+<li title="#756F73" style="background: #756F73"></li>
+<li title="#29333E" style="background: #29333E"></li>
+<li title="#1B1F28" style="background: #1B1F28"></li>
+<li title="#464D57" style="background: #464D57"></li>
+*/
+
+
+
+
 body {
-  /*background-image: url("images/background_image_alt.jpg");
-  background-size: 100% 100%;*/
+  background-image: url("images/background_image_alt.jpg");
+  background-size: 100% 100%;
   /*background-image: url("images/fox100.jpg");*/
   width: 100%;
   height: 100%;

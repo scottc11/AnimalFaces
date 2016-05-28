@@ -14,11 +14,11 @@ var pixelArray;
 
 // Be sure to initialize a server in order to load image
 function preload() {
-  backgroundImg = loadImage("images/background_image_alt.jpg", function() {
-    console.log("load image success");
-  }, function() {
-    console.log("load image failed");
-  });
+  // backgroundImg = loadImage("images/background_image_alt.jpg", function() {
+  //   console.log("load image success");
+  // }, function() {
+  //   console.log("load image failed");
+  // });
 
   img = loadImage("images/fox50.jpg", function() {
     console.log("load image success");
@@ -30,11 +30,12 @@ function preload() {
 
 
 function setup() {
-  var canvas = createCanvas(500, 500);
+  var canvas = createCanvas(800, 800);
   canvas.parent('sketchContainer');
 
 
-  background(backgroundImg); // make the background 100% opaque
+  // background(backgroundImg); // make the background 100% opaque
+
   // loadPixels(); // must be called before accessing the pixels[] array
 
   // instantiate attractor object
@@ -61,7 +62,16 @@ function setup() {
 
 function draw() {
 
-  background(backgroundImg);
+  fill(70, 77, 87);
+  noStroke();
+  rect(0, 0, width, height);
+
+  // var dirX = (mouseX / width - 0.5) *2;
+  // var dirY = (mouseY / height - 0.5) *(-2);
+  // directionalLight(250, 250, 250, dirX, dirY, 0.25);
+  // ambientMaterial(250);
+
+  // background(77, 33, 45, 0.2);
   attractor.location.x = mouseX;
   attractor.location.y = mouseY;
   attractor.draw();
@@ -103,6 +113,12 @@ function Particle(_locX, _locY, _size, _name) {
   this.topSpeed = 10;
 
   this.draw = function() {
+    // SHADOW ELLIPSE
+    // fill(55);
+    // noStroke();
+    // ellipse(this.location.x + 3, this.location.y + 2, this.size + 1, this.size + 1);
+
+    //WHITE ELLIPSE
     fill(255);
     noStroke();
     ellipse(this.location.x, this.location.y, this.size, this.size);
