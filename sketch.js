@@ -3,7 +3,7 @@ var gravConst = 60;  // the gravity contstant increases the velocity speed
 
 var attractor; // object which attracts particles
 var attractorRange = 100;
-var attractorMass = 20; // the size (ie. mass) of the attractor will effect the gravitational pull
+var attractorMass = 30; // the size (ie. mass) of the attractor will effect the gravitational pull
 var originMass = 75; // this value represents the gravitational pull when particle is returning to its origin (ie. the speed)
 
 var particleArray = [];
@@ -21,7 +21,7 @@ function preload() {
   //   console.log("load image failed");
   // });
 
-  img = loadImage("images/fox50.jpg", function() {
+  img = loadImage("images/tiger.jpg", function() {
     console.log("load image success");
   }, function() {
     console.log("load image failed");
@@ -63,7 +63,7 @@ function setup() {
 
 function draw() {
 
-  fill(27, 31, 40, 100);
+  fill(27, 31, 40);
   noStroke();
   rect(0, 0, width, height);
 
@@ -98,10 +98,8 @@ function draw() {
         particle.draw();
       } else {
         // when particle.location is within 5px of its .origin, set .location to .origin
-        particle.velocity.x = 0.0;
-        particle.velocity.y = 0.0;
-        particle.location.x = particle.origin.x;
-        particle.location.y = particle.origin.y;
+        particle.velocity.set(0, 0);
+        particle.location.set(particle.origin);
         particle.update();
         particle.draw();
       }
