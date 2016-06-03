@@ -62,15 +62,13 @@ function setup() {
 
 function draw() {
 
-  fill(70, 77, 87);
+  fill(27, 31, 40, 100);
   noStroke();
   rect(0, 0, width, height);
 
-  // background(77, 33, 45, 0.2);
-
   attractor.location.x = mouseX;
   attractor.location.y = mouseY;
-  attractor.draw();
+  // attractor.draw();
 
   // updating the particles
   for (var i = 0; i < particleArray.length; i++) {
@@ -109,15 +107,12 @@ function Particle(_locX, _locY, _size, _name) {
   this.topSpeed = 10;
 
   this.draw = function() {
-    // SHADOW ELLIPSE
-    // fill(55);
-    // noStroke();
-    // ellipse(this.location.x + 3, this.location.y + 2, this.size + 1, this.size + 1);
-
     //WHITE ELLIPSE
-    fill(255);
-    noStroke();
-    ellipse(this.location.x, this.location.y, this.size, this.size);
+    if (this.size > 2.5) {
+      fill(255);
+      noStroke();
+      ellipse(this.location.x, this.location.y, this.size, this.size);
+    }
   }
 
   // Apply the given force returned from Attractor to the particles velocity
