@@ -3,7 +3,8 @@ var gravConst = 60;  // the gravity contstant increases the velocity speed
 
 var attractor; // object which attracts particles
 var attractorRange = 100;
-var attractorSize = 20; // the size (ie. mass) of the attractor will effect the gravitational pull
+var attractorMass = 20; // the size (ie. mass) of the attractor will effect the gravitational pull
+var originMass = 75; // this value represents the gravitational pull when particle is returning to its origin (ie. the speed)
 
 var particleArray = [];
 
@@ -39,7 +40,7 @@ function setup() {
   // loadPixels(); // must be called before accessing the pixels[] array
 
   // instantiate attractor object
-  attractor = new Attractor(mouseX, mouseY, attractorSize);
+  attractor = new Attractor(mouseX, mouseY, attractorMass);
 
   // build array of particle objects for each pixel in img
   // the gridx and gridy variables represent each pixel in the image
@@ -97,6 +98,8 @@ function draw() {
         particle.draw();
       } else {
         // when particle.location is within 5px of its .origin, set .location to .origin
+        particle.velocity.x = 0.0;
+        particle.velocity.y = 0.0;
         particle.location.x = particle.origin.x;
         particle.location.y = particle.origin.y;
         particle.update();
@@ -121,7 +124,7 @@ function Particle(_locX, _locY, _size, _name) {
   this.velocity = new p5.Vector(0.0, 0.0);
   this.acceleration = new p5.Vector(0.0, 0.0);
   this.size = _size;
-  this.topSpeed = 10;
+
 
   this.draw = function() {
     //WHITE ELLIPSE
@@ -162,7 +165,7 @@ function Particle(_locX, _locY, _size, _name) {
     forceDirection.normalize();
 
     // below is the equation for calculating the gravitational force of an object
-    var magnitude = (gravConst * 50 * this.size) / (distance * distance);
+    var magnitude = (gravConst * originMass * this.size) / (distance * distance);
     var force = forceDirection.mult(magnitude);
 
     this.velocity = force;
