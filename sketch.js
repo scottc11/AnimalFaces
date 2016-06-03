@@ -83,9 +83,26 @@ function draw() {
     }
 
     if (particle.getDistanceFromAttractor(attractor) > attractor.range) {
-      particle.returnToOrigin();
-      particle.update();
-      particle.draw();
+      // particle.returnToOrigin();
+      // particle.update();
+      // particle.draw();
+
+
+
+      // when particle.location it greater than 5px away from particle.origin
+      if (particle.getDistanceFromOrigin() > 20) {
+        // gradually return particle to its origin.
+        particle.returnToOrigin();
+        particle.update();
+        particle.draw();
+      } else {
+        // when particle.location is within 5px of its .origin, set .location to .origin
+        particle.location.x = particle.origin.x;
+        particle.location.y = particle.origin.y;
+        particle.update();
+        particle.draw();
+      }
+
     }
   }
 }
@@ -133,7 +150,22 @@ function Particle(_locX, _locY, _size, _name) {
   }
 
   this.returnToOrigin = function() {
-    this.location.set(this.origin);
+    // calculations for objects distance
+    var forceDirection = p5.Vector.sub(this.origin, this.location);
+    var distance = forceDirection.mag();
+
+
+    // the constrain() method will prevent unwanted effects when the object gets to close to the center of the attractor.
+    distance = constrain(distance, 40, 300);
+
+    // unsure what the pupurpose of normalize is, but it turns a vector into a number between 0.0 and 1.0 - kinda like map()
+    forceDirection.normalize();
+
+    // below is the equation for calculating the gravitational force of an object
+    var magnitude = (gravConst * 50 * this.size) / (distance * distance);
+    var force = forceDirection.mult(magnitude);
+
+    this.velocity = force;
   }
 
   this.update = function() {
