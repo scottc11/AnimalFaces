@@ -21,7 +21,7 @@ function preload() {
   //   console.log("load image failed");
   // });
 
-  img = loadImage("images/tiger.jpg", function() {
+  img = loadImage("images/tiger4_50.jpg", function() {
     console.log("load image success");
   }, function() {
     console.log("load image failed");
@@ -53,6 +53,7 @@ function setup() {
       var posY = tileHeight * gridY;
       var pixelColor = img.get(gridX, gridY);
       var greyscale = round(red(pixelColor)*0.222 + green(pixelColor)*0.707 + blue(pixelColor)*0.071);
+      // console.log(posX + ", " + posY + ": " + greyscale);
       var size = 0.75 * sqrt(tileWidth*tileWidth*(1-greyscale/255.0));
       particleArray.push(new Particle(posX, posY, size));
     }
